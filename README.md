@@ -1,20 +1,22 @@
 # LancasterTaxSale
-## Found the Lancaster County Tax Sale data online as a PDF file.
+## Step 1 - Importing data
+### Found the Lancaster County Tax Sale data online as a PDF file.
 ### Downloaded the PDF and converted it to an .XLS using pdftoexcel.com Uploaded the .XLS document to Google Drive and then downloaded it to my laptop as a .csv file.
 ### Imported the Lancaster County Tax Sale data .csv file into R Studio for munging and analysis
 
-### Rename columns
+## Step 2 - Rename colums
+### Found and corrected column name mistake
 ```
 Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Account_Number = X1)
 Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Owner_Name = X2, Addess = X3, Sale_Amount = X4)
+Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Address = Addess) 
 ```
-### Change empty variable to "NA"
+## Step 3 - Change empty vectors to "NA"
 ```
 Lancaster_Tax_Sale[is.na(Lancaster_Tax_Sale)] <- 'NA'
 ```
 ### Later discovered this was a misktake. Empty variables are already "NA" in R. I started over by re-importing the data.
-```
-Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Address = Addess)
+##
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale_Year:2017"]<-NA
 > View(Lancaster_Tax_Sale)
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Site Address"]<-NA
@@ -73,4 +75,8 @@ Error: unexpected string constant in "Lancaster_Tax_Sale[Lancaster_Tax_Sale == "
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 28 of 30"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 29 of 30"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 30 of 30"]<-NA
+```
+##Step 4
+```
+lts.nona <-lts.nona[apply(lts.nona,1,function(x)any(!is.na(x))),]
 ```
