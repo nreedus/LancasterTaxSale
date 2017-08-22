@@ -16,9 +16,10 @@ Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Address = Addess)
 Lancaster_Tax_Sale[is.na(Lancaster_Tax_Sale)] <- 'NA'
 ```
 ### Later discovered this was a misktake. Empty variables are already "NA" in R. I started over by re-importing the data.
-##
+
+## Step 4 Change random vectors to NA
+```
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale_Year:2017"]<-NA
-> View(Lancaster_Tax_Sale)
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Site Address"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Year:2017"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Year: 2017"]<-NA
@@ -33,10 +34,6 @@ Lancaster_Tax_Sale[is.na(Lancaster_Tax_Sale)] <- 'NA'
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Copyright (C) 1997-2017 DEVNET Incorporated"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 2 of 30"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Order", "Account Number"]<-NA
-Error in `[<-.data.frame`(`*tmp*`, Lancaster_Tax_Sale == "Sale Order",  : 
-  missing values are not allowed in subscripted assignments of data frames
-> Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Order" "Account Number"]<-NA
-Error: unexpected string constant in "Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Order" "Account Number""
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Order"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Account Number"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Owner Name"]<-NA
@@ -45,7 +42,13 @@ Error: unexpected string constant in "Lancaster_Tax_Sale[Lancaster_Tax_Sale == "
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 5 of 30"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 6 of 30"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 6 of 30"]<-NA
+```
+
+### Could not remove this string, not sure why. 
+```
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Sale Order Account Number Owner Name"]<-NA
+```
+```
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "et. Al"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Home"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "HOME"]<-NA
@@ -76,7 +79,16 @@ Error: unexpected string constant in "Lancaster_Tax_Sale[Lancaster_Tax_Sale == "
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 29 of 30"]<-NA
 > Lancaster_Tax_Sale[Lancaster_Tax_Sale == "Page 30 of 30"]<-NA
 ```
-##Step 4
+##Step 5 I wanted to filter and remove all NA rows. 
+###I struggled with this for two days. I finally found this function:
+```
+apply(DF,1,function(x)any(!is.na(x)))
+```
+### First, I decided to assign this function to an output?
+```
+lts.nona <-Lancaster_Tax_Sale
+```
+### Then
 ```
 lts.nona <-lts.nona[apply(lts.nona,1,function(x)any(!is.na(x))),]
 ```
