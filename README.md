@@ -8,3 +8,7 @@
 Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Account_Number = X1)
 Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Owner_Name = X2, Addess = X3, Sale_Amount = X4)
 ```
+### Change empty variable to "NA"
+```
+Lancaster_Tax_Sale[is.na(Lancaster_Tax_Sale)] <- 'NA'
+```
