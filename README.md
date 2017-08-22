@@ -12,3 +12,4 @@ Lancaster_Tax_Sale <-rename(Lancaster_Tax_Sale, Owner_Name = X2, Addess = X3, Sa
 ```
 Lancaster_Tax_Sale[is.na(Lancaster_Tax_Sale)] <- 'NA'
 ```
+### Later discovered this was a misktake. Empty variables are already "NA" in R. I started over by re-importing the data.
