@@ -88,7 +88,11 @@ apply(DF,1,function(x)any(!is.na(x)))
 ```
 lts.nona <-Lancaster_Tax_Sale
 ```
-### Then
+### Then I ran the function
+```
+apply(lts.nona,1,function(x)any(!is.na(x)))
+```
+### I got an output in my console but it did not change my dataset. So I assigned it to lts.nona and it worked.
 ```
 lts.nona <-lts.nona[apply(lts.nona,1,function(x)any(!is.na(x))),]
 ```
